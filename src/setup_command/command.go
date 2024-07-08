@@ -1,0 +1,5 @@
+package setupcommand
+
+func Execute() {
+
+}

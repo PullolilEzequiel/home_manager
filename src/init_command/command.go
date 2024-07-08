@@ -1,0 +1,5 @@
+package initcommand
+
+func Execute() {
+
+}

@@ -1,0 +1,5 @@
+package reversecommand
+
+func Execute() {
+
+}

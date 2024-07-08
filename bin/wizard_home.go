@@ -2,31 +2,36 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
+
+	initCommand "github.com/PullolilEzequiel/wizard-home/src/init_command"
+	reverseCommand "github.com/PullolilEzequiel/wizard-home/src/reverse_command"
+	saveCommand "github.com/PullolilEzequiel/wizard-home/src/save_command"
+	setupCommand "github.com/PullolilEzequiel/wizard-home/src/setup_command"
 )
-
-func init() {
-
-}
 
 var initC = &cobra.Command{
 	Use:   "init",
 	Short: "Create initial config for wizard_home",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Print("init")
+		initCommand.Execute()
 	}}
 var saveC = &cobra.Command{
 	Use:   "save",
 	Short: "Persist our actual config to our remote repository",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Print("save")
+		reverseCommand.Execute()
 	}}
 var reverseC = &cobra.Command{
 	Use:   "reverse",
 	Short: "Reverse the actual system config to the last commit in our remote repository",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Print("reverse")
+		saveCommand.Execute()
 	}}
 var setupC = &cobra.Command{
 	Use:   "setup",
@@ -34,6 +39,7 @@ var setupC = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Print("setup")
+		setupCommand.Execute()
 	}}
 
 func main() {
@@ -46,5 +52,8 @@ func main() {
 	rootCmd.AddCommand(saveC)
 	rootCmd.AddCommand(reverseC)
 	rootCmd.AddCommand(setupC)
-	rootCmd.Execute()
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 }
