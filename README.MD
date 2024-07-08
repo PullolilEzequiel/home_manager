@@ -73,14 +73,14 @@ If you want to reverse your old configs use the following command
 ```bash
 wizard_home reverse
 ```
-[!WARNING] 
-**This command uses the configurations that are already in your remote repository**
-
+> [!WARNING]
+> This command uses the configurations that are already in your remote repository
 
 ### install config
 You can install all the wizard home config of others users parsing the git url, this command needs the config.json file for works.
-[!CAUTION]
-This command not have any integriti check**.
+
+> [!CAUTION]
+> This command not have any integriti check.
 
 ```bash
 wizard_home setup <remote url>
