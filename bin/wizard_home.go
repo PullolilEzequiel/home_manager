@@ -1,15 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/spf13/cobra"
 
-	initCommand "github.com/PullolilEzequiel/wizard-home/src/init_command"
-	reverseCommand "github.com/PullolilEzequiel/wizard-home/src/reverse_command"
-	saveCommand "github.com/PullolilEzequiel/wizard-home/src/save_command"
-	setupCommand "github.com/PullolilEzequiel/wizard-home/src/setup_command"
+	initCommand "github.com/PullolilEzequiel/wizard-home/internal/command/init_command"
+	reverseCommand "github.com/PullolilEzequiel/wizard-home/internal/command/reverse_command"
+	saveCommand "github.com/PullolilEzequiel/wizard-home/internal/command/save_command"
+	setupCommand "github.com/PullolilEzequiel/wizard-home/internal/command/setup_command"
 )
 
 var initC = &cobra.Command{
@@ -38,7 +35,6 @@ func main() {
 	rootCmd.AddCommand(reverseC)
 	rootCmd.AddCommand(setupC)
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		cobra.CheckErr(err)
 	}
 }
