@@ -1,5 +1,4 @@
 # Wizard home
-
 Useful tool that provides an easy use, easy install method to manage yours config files offering an easy way to setup an zero state OS
 
 ## Install
@@ -41,7 +40,7 @@ Once the configuration has been initialized, we are going to take a short tour o
 nvim $HOME/.config/wizard_home/config.json
 ```
 
-The initial configuration mainly has 3 fields.
+The initial configuration mainly has 2 fields.
    - repository_url: the url of your remote repository where you will save your config
    - configs_to_persist: The configuration files you are looking to persist
 
