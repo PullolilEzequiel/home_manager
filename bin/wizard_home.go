@@ -13,38 +13,23 @@ import (
 )
 
 var initC = &cobra.Command{
-	Use:   "init",
-	Short: "Create initial config for wizard_home",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Print("init")
-		initCommand.Execute()
-	}}
+	Use: "init", Short: "Create initial config for wizard_home",
+	Run: initCommand.Execute,
+}
 var saveC = &cobra.Command{
-	Use:   "save",
-	Short: "Persist our actual config to our remote repository",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Print("save")
-		reverseCommand.Execute()
-	}}
+	Use: "save", Short: "Persist our actual config to our remote repository",
+	Run: saveCommand.Execute}
 var reverseC = &cobra.Command{
-	Use:   "reverse",
-	Short: "Reverse the actual system config to the last commit in our remote repository",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Print("reverse")
-		saveCommand.Execute()
-	}}
+	Use: "reverse", Short: "Reverse the actual system config to the last commit in our remote repository",
+	Run: reverseCommand.Execute}
 var setupC = &cobra.Command{
-	Use:   "setup",
-	Short: "Change the system configuration to another Wizard Home repository",
-	Args:  cobra.ExactArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Print("setup")
-		setupCommand.Execute()
-	}}
+	Use: "setup", Short: "Change the system configuration to another Wizard Home repository",
+	Args: cobra.ExactArgs(1),
+	Run:  setupCommand.Execute,
+}
 
 func main() {
-	rootCmd := &cobra.Command{
-		Use:   "wizard_home",
+	rootCmd := &cobra.Command{Use: "wizard_home",
 		Short: "Wizard home is a CLI tool that seeks to help preserve the personalized configuration of our system.",
 	}
 
