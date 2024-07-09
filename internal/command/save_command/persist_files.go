@@ -54,7 +54,7 @@ func copyDirectory(directoryPath, path string) {
 
 func createFolder(path, name string) string {
 	dir := fmt.Sprintf("%s/%s", path, name)
-	if err := os.Mkdir(dir, 0666); err != nil {
+	if err := os.Mkdir(dir, 0777); err != nil {
 		panic(err)
 	}
 
