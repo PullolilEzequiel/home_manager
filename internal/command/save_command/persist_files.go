@@ -1,36 +1,19 @@
 package savecommand
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
 	"os"
 	"strings"
 )
 
-type JsonConfig struct {
-	Repository_url     string   `json:repository_url`
-	Configs_to_persist []string `json:configs_to_persist`
-}
-
-func PersistFiles(folderPath, configPath string) {
-	config := getConfigFields(configPath)
-	fmt.Println(config.Repository_url)
-	copyFiles(folderPath, config.Configs_to_persist)
-}
-
-/*
-Copy all the files in config path to wizard_home folder
-*/
-func copyFiles(tmpFolder string, paths []string) {
-
+func PersistFiles(folderPath, configPath string, paths []string) {
 	for _, path := range paths {
-		copyPathIn(path, tmpFolder)
+		fmt.Printf("- Saving state of %s \n", path)
+		copyPathIn(path, folderPath)
 	}
 }
 
 func copyPathIn(path, pathReceptor string) {
-	fmt.Printf("Copy file %s in directory %s \n", path, pathReceptor)
 	mode, err := os.Stat(path)
 	if err != nil {
 		panic(err)
@@ -66,11 +49,6 @@ func copyFile(filePath, path string) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("--------------------")
-	fmt.Println(filePath)
-	fmt.Println(path)
-	fmt.Println(createFilePath(filePath, path))
-	fmt.Println("--------------------")
 	os.WriteFile(createFilePath(filePath, path), content, 0666)
 }
 
@@ -83,13 +61,4 @@ func createFilePath(filePath, path string) string {
 func nameOf(filePath string) string {
 	s := strings.Fields(strings.ReplaceAll(filePath, "/", " "))
 	return s[len(s)-1]
-}
-
-func getConfigFields(configPath string) JsonConfig {
-	obj := JsonConfig{}
-	content, _ := os.Open(fmt.Sprintf("%s/config.json", configPath))
-
-	data, _ := io.ReadAll(content)
-	json.Unmarshal(data, &obj)
-	return obj
 }
