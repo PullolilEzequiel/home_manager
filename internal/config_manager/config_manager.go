@@ -72,7 +72,7 @@ func (c Config) CreateTemporalFolder(folderPattern string, insideTemporalFolderA
 	if err != nil {
 		return err
 	}
-	defer os.RemoveAll(s)
+	//defer os.RemoveAll(s)
 
 	return insideTemporalFolderAction(s)
 }

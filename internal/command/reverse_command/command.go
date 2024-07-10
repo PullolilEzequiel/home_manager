@@ -11,7 +11,7 @@ func Execute(cmd *cobra.Command, args []string) {
 	fmt.Println("Reverting system settings")
 	t := time.Now()
 
-	defer func() { fmt.Printf("Reverting ended in %f \n", time.Since(t).Seconds()) }()
+	defer func() { fmt.Printf("Reverting ended in %.2f \n", time.Since(t).Minutes()) }()
 	rvm := ReverseManager()
 
 	cobra.CheckErr(rvm.ReverseConfigState())
