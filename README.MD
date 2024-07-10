@@ -84,3 +84,9 @@ You can install all the wizard home config of others users parsing the git url, 
 ```bash
 wizard_home setup <remote url>
 ```
+
+
+
+
+
+---

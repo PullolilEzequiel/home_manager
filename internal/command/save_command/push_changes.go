@@ -15,7 +15,7 @@ func PushChanges(dir string, repoUrl string) {
 }
 
 func push_changes() {
-	c := exec.Command("git", "push", "-u", "origin", "main")
+	c := exec.Command("git", "push", "-u", "--force", "origin", "main")
 	if std, err := c.CombinedOutput(); err != nil {
 		fmt.Println(string(std))
 		panic(err)

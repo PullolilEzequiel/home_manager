@@ -29,9 +29,11 @@ func copyDirectory(directoryPath, path string) {
 	dir := createFolder(path, nameOf(directoryPath))
 
 	files, _ := os.ReadDir(directoryPath)
-	for _, f := range files {
-		pathOf := fmt.Sprintf("%s/%s", directoryPath, f.Name())
-		copyPathIn(pathOf, dir)
+	if nameOf(directoryPath) != ".git" {
+		for _, f := range files {
+			pathOf := fmt.Sprintf("%s/%s", directoryPath, f.Name())
+			copyPathIn(pathOf, dir)
+		}
 	}
 }
 
