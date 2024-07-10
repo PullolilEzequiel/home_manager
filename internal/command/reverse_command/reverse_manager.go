@@ -7,6 +7,7 @@ import (
 	"path"
 
 	configmanager "github.com/PullolilEzequiel/wizard-home/internal/config_manager"
+	directory_management "github.com/PullolilEzequiel/wizard-home/internal/directory_management"
 )
 
 type reverseManager struct {
@@ -34,15 +35,20 @@ func (rm reverseManager) replaceSystemFilesForRemote(folderPath string) error {
 	if err := rm.cloneRemoteFiles(folderPath); err != nil {
 		return err
 	}
-	if err := rm.replaceFilesAsociatedInConfig(folderPath); err != nil {
+	if err := rm.replaceFilesAsociatedInConfig(path.Join(folderPath, rm.config.RepoName())); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (rm reverseManager) cloneRemoteFiles(temporalPath string) error {
+/*
+Clones the remote repository of the wizard_home config
+
+@directoryPathDestiny string : the folder to clone the repository
+*/
+func (rm reverseManager) cloneRemoteFiles(directoryPathDestiny string) error {
 	fmt.Println("Cloning repository")
-	os.Chdir(temporalPath)
+	os.Chdir(directoryPathDestiny)
 	cmd := exec.Command("git", "clone", rm.config.RepoUrl())
 
 	if _, err := cmd.CombinedOutput(); err != nil {
@@ -52,13 +58,18 @@ func (rm reverseManager) cloneRemoteFiles(temporalPath string) error {
 	return os.Chdir(rm.config.HomeDir())
 }
 
-func (rm reverseManager) replaceFilesAsociatedInConfig(temporalPath string) error {
-	dir := temporalPath + rm.config.RepoName()
+/*
+Replace the files asociated in the wizard_home config.json with the files of the location path passed for parameter
 
+@pathLocation string: The directory where the files and folders are located
+*/
+func (rm reverseManager) replaceFilesAsociatedInConfig(pathLocation string) error {
 	for _, fileDir := range rm.config.ConfigPaths() {
-		d := path.Base(fileDir)
-		fmt.Println(fileDir)
-		fmt.Println(dir + d)
+		folderName := path.Base(fileDir)
+		newPath := path.Join(pathLocation, folderName)
+		if err := directory_management.ReplaceFileOrFolder(newPath, fileDir); err != nil {
+			return err
+		}
 	}
 	return nil
 }
