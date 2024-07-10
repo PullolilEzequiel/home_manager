@@ -86,7 +86,3 @@ wizard_home setup <remote url>
 ```
 
 
-
-
-
----
