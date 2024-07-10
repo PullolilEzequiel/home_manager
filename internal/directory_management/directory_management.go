@@ -5,29 +5,45 @@ import (
 	"os"
 )
 
-func ReplaceFileOrFolder(pathToMove, path string) error {
-	fmt.Println(pathToMove, path)
-	mode, err := os.Stat(pathToMove)
+/*
+Replace the the file o folder passed for parameter to the location
+
+@sourcePath string : The source of the folder o file
+@locationToReplace string : The new location for the folder o file
+*/
+func ReplaceFileOrFolderFor(locationToReplace, sourcePath string) error {
+	fmt.Println(sourcePath, locationToReplace)
+	mode, err := os.Stat(sourcePath)
 	if err != nil {
 		return err
 	}
 	if mode.IsDir() {
-		return ReplaceFolder(pathToMove, path)
+		return ReplaceFolder(locationToReplace, sourcePath)
 	} else {
-		return ReplaceFile(pathToMove, path)
+		return ReplaceFile(locationToReplace, sourcePath)
 	}
 }
 
-func ReplaceFolder(folderPath, path string) error {
-	if err := os.RemoveAll(path); err != nil {
+/*
+Replace the oldDirectory for the new directory passed for parameter
+@oldDirectory string: Path of the directory to replace
+@sourceDirectory string: Source of the new directory
+*/
+func ReplaceFolder(oldDirectory, sourceDirectory string) error {
+	if err := os.RemoveAll(oldDirectory); err != nil {
 		return err
 	}
-	return os.Rename(folderPath, path)
+	return os.Rename(sourceDirectory, oldDirectory)
 }
 
-func ReplaceFile(filePath, path string) error {
-	if err := os.Remove(path); err != nil {
+/*
+Replace the oldFile for the new file passed for parameter
+@oldFile string: Path of the file to replace
+@sourceFile string: Source of the new file
+*/
+func ReplaceFile(oldFile, sourceFile string) error {
+	if err := os.Remove(oldFile); err != nil {
 		return err
 	}
-	return os.Rename(filePath, path)
+	return os.Rename(sourceFile, oldFile)
 }
