@@ -1,6 +1,11 @@
 package reversecommand
 
 import (
+	"fmt"
+	"os"
+	"os/exec"
+	"path"
+
 	configmanager "github.com/PullolilEzequiel/wizard-home/internal/config_manager"
 )
 
@@ -17,6 +22,9 @@ func ReverseManager() reverseManager {
 }
 
 func (rm reverseManager) ReverseConfigState() error {
+	return rm.config.CreateTemporalFolder("reverse_folder", rm.replaceSystemFilesForRemote)
+}
+
 
 	return nil
 }
