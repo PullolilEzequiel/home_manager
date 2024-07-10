@@ -61,18 +61,16 @@ func (c Config) HomeDir() string       { return c.user_home }
 
 /*
 Creates a temporal folder in the wizard_home folder with the patter passed for paramter and make action inside it and remove the folder
-@folderPattern string
-  - The pattern name
+@folderPattern string :The pattern name
 
-@insideTemporalFolderAction func(folderName string) error
-  - Action performed within the temporary folder.
+@insideTemporalFolderAction func(folderName string) error : Action performed within the temporary folder.
 */
 func (c Config) CreateTemporalFolder(folderPattern string, insideTemporalFolderAction func(folderName string) error) error {
 	s, err := os.MkdirTemp(c.Path(), folderPattern)
 	if err != nil {
 		return err
 	}
-	//defer os.RemoveAll(s)
+	defer os.RemoveAll(s)
 
 	return insideTemporalFolderAction(s)
 }
