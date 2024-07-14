@@ -12,7 +12,6 @@ func Execute(cmd *cobra.Command, args []string) {
 	t := time.Now()
 
 	defer func() { fmt.Printf("Reverting ended in %.2f \n", time.Since(t).Minutes()) }()
-	sm := SetupManager()
-
+	sm := SetupManager(args[0])
 	cobra.CheckErr(sm.SetupConfigState())
 }
