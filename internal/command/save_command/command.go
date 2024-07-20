@@ -10,7 +10,7 @@ import (
 func Execute(cmd *cobra.Command, args []string) {
 	fmt.Println("Saving config files...")
 	t := time.Now()
-	defer func() { fmt.Printf("Save ended in %.2f \n", time.Since(t).Minutes()) }()
+	defer func() { fmt.Printf("Save ended in %.2f \n", time.Since(t).Seconds()) }()
 	svm := SaveManager()
 	cobra.CheckErr(svm.SaveConfigState())
 }
