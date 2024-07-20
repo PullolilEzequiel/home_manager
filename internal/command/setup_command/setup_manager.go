@@ -42,10 +42,15 @@ func (sm setupManager) replaceSystemFilesForRemote(folderPath string) error {
 
 func (sm setupManager) cloneRemoteFiles(directoryPathDestiny string) error {
 	fmt.Println("Cloning repository")
-	os.Chdir(directoryPathDestiny)
-	cmd := exec.Command("git", "clone", sm.config.RepoUrl())
 
+	os.Chdir(directoryPathDestiny)
+	cmd := exec.Command("git", "clone", sm.externalRepo)
 	if _, err := cmd.CombinedOutput(); err != nil {
+		return err
+	}
+
+	fmt.Println(path.Join(directoryPathDestiny, path.Base(sm.externalRepo), "config.json"))
+	if err := directory_management.ReplaceFile(sm.config.ConfigFilePath(), path.Join(directoryPathDestiny, path.Base(sm.externalRepo), "config.json")); err != nil {
 		return err
 	}
 
