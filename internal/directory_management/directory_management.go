@@ -1,7 +1,6 @@
 package directorymanagement
 
 import (
-	"fmt"
 	"os"
 	"path"
 )
@@ -13,7 +12,6 @@ Replace the the file o folder passed for parameter to the location
 @locationToReplace string : The new location for the folder o file
 */
 func ReplaceFileOrFolderFor(locationToReplace, sourcePath string) error {
-	fmt.Println(sourcePath, locationToReplace)
 	mode, err := os.Stat(sourcePath)
 	if err != nil {
 		return err
