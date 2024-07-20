@@ -65,8 +65,7 @@ Replace the files asociated in the wizard_home config.json with the files of the
 */
 func (rm reverseManager) replaceFilesAsociatedInConfig(pathLocation string) error {
 	for _, fileOrFolder := range rm.config.ConfigPaths() {
-		folderName := path.Base(fileOrFolder)
-		newFileOrDirectory := path.Join(pathLocation, folderName)
+		newFileOrDirectory := path.Join(pathLocation, path.Base(fileOrFolder))
 		if err := directory_management.ReplaceFileOrFolderFor(fileOrFolder, newFileOrDirectory); err != nil {
 			return err
 		}

@@ -33,10 +33,9 @@ func (sm saveManager) copyConfigFilesAndSaveInRemoteRepository(folderName string
 }
 
 func (sm saveManager) copyConfigFilesAndFolder(folderName string) error {
-
+	fmt.Println("Saving folders and files ")
 	for _, fileOrFolder := range sm.config.ConfigPaths() {
-		fmt.Println("Copy")
-		fmt.Printf("*%s to %s \n", fileOrFolder, folderName)
+		fmt.Println("Saving " + fileOrFolder)
 		if err := directory_management.CopyFolderOrFile(fileOrFolder, folderName); err != nil {
 			return err
 		}
@@ -46,5 +45,6 @@ func (sm saveManager) copyConfigFilesAndFolder(folderName string) error {
 
 func (sm saveManager) pushConfigStateToRepository(folderName string) error {
 	fmt.Println(folderName)
-	return nil
+
+	return directory_management.PushChanges(folderName, sm.config.RepoUrl())
 }
