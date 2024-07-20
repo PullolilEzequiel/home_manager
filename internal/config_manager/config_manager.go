@@ -53,11 +53,12 @@ func panicCheck(err error) {
 	}
 }
 
-func (c Config) Path() string          { return c.wizard_home_path }
-func (c Config) ConfigPaths() []string { return c.config_paths }
-func (c Config) RepoUrl() string       { return c.repository_url }
-func (c Config) RepoName() string      { return c.repository_name }
-func (c Config) HomeDir() string       { return c.user_home }
+func (c Config) Path() string           { return c.wizard_home_path }
+func (c Config) ConfigPaths() []string  { return c.config_paths }
+func (c Config) RepoUrl() string        { return c.repository_url }
+func (c Config) RepoName() string       { return c.repository_name }
+func (c Config) HomeDir() string        { return c.user_home }
+func (c Config) ConfigFilePath() string { return path.Join(c.wizard_home_path, "config.json") }
 
 /*
 Creates a temporal folder in the wizard_home folder with the patter passed for paramter and make action inside it and remove the folder

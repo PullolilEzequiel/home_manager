@@ -40,7 +40,12 @@ func (sm saveManager) copyConfigFilesAndFolder(folderName string) error {
 			return err
 		}
 	}
-	return nil
+
+	return sm.copyConfigFile(folderName)
+}
+
+func (sm saveManager) copyConfigFile(folderName string) error {
+	return directory_management.CopyFolderOrFile(sm.config.ConfigFilePath(), folderName)
 }
 
 func (sm saveManager) pushConfigStateToRepository(folderName string) error {
