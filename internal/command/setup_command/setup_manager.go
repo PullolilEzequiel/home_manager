@@ -41,16 +41,13 @@ func (sm setupManager) replaceSystemFilesForRemote(folderPath string) error {
 }
 
 func (sm setupManager) cloneRemoteFiles(directoryPathDestiny string) error {
-	fmt.Println("Cloning repository")
-
 	os.Chdir(directoryPathDestiny)
 	cmd := exec.Command("git", "clone", sm.externalRepo)
 	if _, err := cmd.CombinedOutput(); err != nil {
 		return err
 	}
-
-	fmt.Println(path.Join(directoryPathDestiny, path.Base(sm.externalRepo), "config.json"))
-	if err := directory_management.ReplaceFile(sm.config.ConfigFilePath(), path.Join(directoryPathDestiny, path.Base(sm.externalRepo), "config.json")); err != nil {
+	configToCopy := path.Join(directoryPathDestiny, path.Base(sm.externalRepo), "config.json")
+	if err := directory_management.ReplaceFile(sm.config.ConfigFilePath(), configToCopy); err != nil {
 		return err
 	}
 
@@ -58,6 +55,7 @@ func (sm setupManager) cloneRemoteFiles(directoryPathDestiny string) error {
 }
 func (sm setupManager) replaceFilesAsociatedInConfig(pathLocation string) error {
 	for _, fileOrFolder := range sm.config.ConfigPaths() {
+		fmt.Printf("- Copy config \"%s\" from %s \n", path.Base(fileOrFolder), sm.externalRepo)
 		folderName := path.Base(fileOrFolder)
 		newFileOrDirectory := path.Join(pathLocation, folderName)
 		if err := directory_management.ReplaceFileOrFolderFor(fileOrFolder, newFileOrDirectory); err != nil {
