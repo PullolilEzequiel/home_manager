@@ -84,3 +84,9 @@ You can install all the wizard home config of others users parsing the git url, 
 ```bash
 wizard_home setup <remote url>
 ```
+
+### add file
+You can also add a file or directory from the terminal without having to modify the config.json file manually
+```bash
+wizard_home add <file or directory path>
+```

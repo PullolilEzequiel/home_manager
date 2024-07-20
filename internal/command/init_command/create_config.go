@@ -16,7 +16,7 @@ func createConfig(path string) error {
 
 func createConfigFile(path string) error {
 
-	configInitData := "{\n \"repository_url\": \"\", \n \"configs_to_persist\": []\n}"
+	configInitData := "{\n \t \"repository_url\": \"\", \n \t \"configs_to_persist\": []\n}"
 
 	if err := os.WriteFile(fmt.Sprintf("%s/config.json", path), []byte(configInitData), 0644); err != nil && !os.IsExist(err) {
 		return err
