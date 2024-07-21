@@ -54,7 +54,7 @@ The initial configuration mainly has 2 fields.
 
 
 ## Use
-With `wizard_home` you can: save the  config, reverse all the config or install the config of other users usgin their repository
+With `wizard_home` you can: save the  config, reverse all the config or install the config of other users using their repository
 
 ### save configs
 Every time you want save the changed configs you have to use wizard_home save.
