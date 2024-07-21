@@ -82,7 +82,7 @@ wizard_home setup <remote url>
 ```
 
 ### add file
-You can also add a file or directory from the terminal without having to modify the config.json file manually
+The command wizard_home add <file or directory path> allows you to add a file or directory to your setup without modifying the configuration file (config.json) manually.
 ```bash
 wizard_home add <file or directory path>
 ```
