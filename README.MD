@@ -6,7 +6,7 @@ Useful tool that provides an easy use, easy install method to manage yours confi
 1. **Clone the repo**
 
 ```bash
-git https://github.com/PullolilEzequiel/wizard-home && cd wizard-home
+git clone https://github.com/PullolilEzequiel/wizard-home && go install wizard-home/bin/wizard_home.go && rm -r wizard-home
 ```
 
 2. Use go install to make it executable from terminal
@@ -19,8 +19,13 @@ To use `go install` to install the project you may need to have the golang envir
 
 You can also do the **"normal"** way and build the project and move it to the /usr/bin folder.
 
+1. **Clone the repo**
+``` 
+git clone https://github.com/PullolilEzequiel/wizard-home && cd wizard-home
+``` 
+2. **Build and move to bin apps**
 ```
-go build && sudo mv /usr/bin/
+go build && sudo mv /usr/bin/wizard_home
 ```
 
 
