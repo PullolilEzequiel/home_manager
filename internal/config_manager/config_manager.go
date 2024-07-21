@@ -2,10 +2,13 @@ package configmanager
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"os"
 	"path"
+
+	directorymanagement "github.com/PullolilEzequiel/wizard-home/internal/directory_management"
 )
 
 type __jsonConfig struct {
@@ -74,4 +77,40 @@ func (c Config) CreateTemporalFolder(folderPattern string, insideTemporalFolderA
 	defer os.RemoveAll(s)
 
 	return insideTemporalFolderAction(s)
+}
+
+func (c *Config) AddConfigPathAndSave(fileOrDirectoryPath string) error {
+	fmt.Printf("Added \"%s\" to the config.json \n", fileOrDirectoryPath)
+
+	if err := c.addConfig(fileOrDirectoryPath); err != nil {
+		return err
+	}
+
+	return c.saveConfig()
+}
+
+func (c *Config) addConfig(fileOrDirectoryPath string) error {
+	pathToAdd, isValid := directorymanagement.TransformPath(fileOrDirectoryPath)
+
+	if !isValid {
+		return errors.New("The path " + fileOrDirectoryPath + "is invalid")
+	}
+
+	c.config_paths = append(c.config_paths, pathToAdd)
+
+	return nil
+}
+
+func (c Config) saveConfig() error {
+
+	publicConfig := __jsonConfig{
+		Repository_url:     c.repository_url,
+		Configs_to_persist: c.config_paths,
+	}
+	if content, err := json.MarshalIndent(publicConfig, "", "\t"); err != nil {
+		return err
+	} else {
+		return os.WriteFile(c.ConfigFilePath(), content, 0644)
+	}
+
 }

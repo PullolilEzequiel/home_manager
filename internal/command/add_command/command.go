@@ -1,12 +1,13 @@
 package addcommand
 
 import (
-	"fmt"
-
+	configmanager "github.com/PullolilEzequiel/wizard-home/internal/config_manager"
 	"github.com/spf13/cobra"
 )
 
 func Execute(cmd *cobra.Command, args []string) {
-	fmt.Println("Adding file or folder", args[0])
+
+	c := configmanager.GetConfig()
+	cobra.CheckErr(c.AddConfigPathAndSave(args[0]))
 
 }

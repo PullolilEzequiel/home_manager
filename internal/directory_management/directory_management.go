@@ -1,6 +1,7 @@
 package directorymanagement
 
 import (
+	"io/fs"
 	"os"
 	"path"
 )
@@ -113,4 +114,30 @@ func createFolder(nPath, name string) string {
 	}
 
 	return dir
+}
+
+func TransformPath(pathToValidate string) (string, bool) {
+	if !fs.ValidPath(pathToValidate) {
+		return "", false
+	}
+
+	if pathToValidate == "." {
+		dir, err := os.Getwd()
+		if err != nil {
+			panic(err)
+		}
+		return dir, true
+
+	}
+
+	if !path.IsAbs(pathToValidate) {
+
+		dir, err := os.Getwd()
+		if err != nil {
+			panic(err)
+		}
+		return path.Join(dir, pathToValidate), true
+	}
+
+	return pathToValidate, true
 }
