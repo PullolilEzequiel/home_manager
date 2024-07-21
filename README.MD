@@ -86,3 +86,11 @@ The command wizard_home add <file or directory path> allows you to add a file or
 ```bash
 wizard_home add <file or directory path>
 ```
+
+
+
+## Upcoming features
+
+1. Add 'date' argument to reverse command
+   * The ability to revert settings to a previous temporary state
+   * Add a README.md to the remote repository of the config wizard to be able to view possible reverse dates
